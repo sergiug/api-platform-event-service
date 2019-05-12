@@ -1,0 +1,40 @@
+version: '3.2'
+
+services:
+  php:
+    build:
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    container_name: api-php
+    # Comment out these volumes in production
+    volumes:
+      - .:/srv/api
+      # If you develop on Linux, uncomment the following line to use a bind-mounted host directory instead
+      # - ./api/var:/srv/api/var:rw
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./docker/nginx/Dockerfile
+    container_name: api-nginx
+    depends_on:
+      - php
+    # Comment out this volume in production
+    volumes:
+      - ./public:/srv/api/public:ro
+    ports:
+      - "8080:80"
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    labels:
+      NAME: "rabbitmq"
