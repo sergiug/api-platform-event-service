@@ -1,5 +1,5 @@
 # api-platform-event-service
-Service to push events to a queue using [API Platform](https://api-platform.com/docs/), [Symfony messenger](https://symfony.com/doc/current/components/messenger.html) and RabbitMQ (https://www.rabbitmq.com/)
+Service to push events to a queue using [API Platform](https://api-platform.com/docs/), [Symfony messenger](https://symfony.com/doc/current/components/messenger.html) and [RabbitMQ] (https://www.rabbitmq.com/)
 
 ## Requiments
 - [Docker](https://docs.docker.com/) & [Docker-compose](https://docs.docker.com/compose/)
